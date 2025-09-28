@@ -1,8 +1,9 @@
 // Enhanced API wrapper for Voting Contract
-// Generated on: 2025-09-28T00:51:31.279Z
+// Generated on: 2025-09-28T03:27:47.364Z
 // Auto-generated from voting.compact
 import { ContractAnalyzer } from './contract-analyzer.js';
 import { DynamicCLIGenerator } from './dynamic-cli-generator.js';
+import * as originalApi from './api.js';
 // Re-export all original API functions
 export * from './api.js';
 /**
@@ -52,14 +53,45 @@ export class EnhancedContractAPI {
     generateMenuQuestion(menuItems) {
         return this.cliGenerator.generateMenuQuestion(menuItems);
     }
+    // Dynamic function mapping based on contract analysis
+    /**
+     * Execute vote function
+     */
+    async vote(...args) {
+        return await originalApi.vote(...args);
+    }
+    /**
+     * Execute get_votes function
+     */
+    async get_votes(...args) {
+        return await originalApi.get_votes(...args);
+    }
 }
 // Export contract metadata for reference
 export const CONTRACT_METADATA = {
     name: 'Voting Contract',
     fileName: 'voting.compact',
-    generatedAt: '2025-09-28T00:51:31.279Z',
-    functions: [],
-    ledgerState: [],
+    generatedAt: '2025-09-28T03:27:47.365Z',
+    functions: [
+        {
+            "name": "vote",
+            "parameters": [],
+            "returnType": "[]",
+            "readOnly": false
+        },
+        {
+            "name": "get_votes",
+            "parameters": [],
+            "returnType": "Uint<64>",
+            "readOnly": true
+        }
+    ],
+    ledgerState: [
+        {
+            "name": "votes",
+            "type": "Counter"
+        }
+    ],
     witnesses: []
 };
 //# sourceMappingURL=enhanced-api.js.map

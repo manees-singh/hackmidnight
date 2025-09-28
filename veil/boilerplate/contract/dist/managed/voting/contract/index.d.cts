@@ -4,15 +4,20 @@ export type Witnesses<T> = {
 }
 
 export type ImpureCircuits<T> = {
+  vote(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, []>;
+  get_votes(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, bigint>;
 }
 
 export type PureCircuits = {
 }
 
 export type Circuits<T> = {
+  vote(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, []>;
+  get_votes(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, bigint>;
 }
 
 export type Ledger = {
+  readonly votes: bigint;
 }
 
 export type ContractReferenceLocations = any;

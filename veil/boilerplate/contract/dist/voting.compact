@@ -1,0 +1,12 @@
+pragma language_version 0.17.0;
+import CompactStandardLibrary;
+
+export ledger votes: Counter;
+
+export circuit vote(): [] {
+  votes.increment(1);
+}
+
+export circuit get_votes(): Uint<64> {
+  return votes;
+}

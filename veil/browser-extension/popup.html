@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 350px;
+      min-height: 400px;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #667eea;
+    }
+
+    .vote-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .vote-count {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .vote-button {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: transform 0.2s;
+    }
+
+    .vote-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .vote-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status {
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .status.connected {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .status.disconnected {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .status.connecting {
+      background: rgba(249, 115, 22, 0.2);
+      color: #f97316;
+      border: 1px solid rgba(249, 115, 22, 0.3);
+    }
+
+    .connect-button {
+      width: 100%;
+      background: linear-gradient(45deg, #22c55e, #16a34a);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      padding: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      transition: transform 0.2s;
+    }
+
+    .connect-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .info-value {
+      font-size: 12px;
+      color: #ffffff;
+      font-family: monospace;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #667eea;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🌙 Veil</div>
+    <div class="subtitle">Midnight Network Extension</div>
+  </div>
+
+  <div id="connection-status" class="status disconnected">
+    Disconnected from Midnight Network
+  </div>
+
+  <button id="connect-btn" class="connect-button">
+    Connect to Midnight
+  </button>
+
+  <div class="card">
+    <div class="section-title">Voting Contract</div>
+    <div class="vote-container">
+      <span>Total Votes: <span id="vote-count" class="vote-count">--</span></span>
+      <button id="vote-btn" class="vote-button" disabled>
+        Vote
+      </button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Contract Info</div>
+    <div class="info-item">
+      <span class="info-label">Network:</span>
+      <span id="network-info" class="info-value">--</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Contract:</span>
+      <span id="contract-info" class="info-value">--</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Wallet:</span>
+      <span id="wallet-info" class="info-value">--</span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

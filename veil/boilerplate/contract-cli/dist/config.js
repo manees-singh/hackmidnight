@@ -1,7 +1,9 @@
 import path from 'node:path';
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { NetworkId, setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
-export const currentDir = path.resolve(new URL(import.meta.url).pathname, '..');
+const __filename = fileURLToPath(import.meta.url);
+export const currentDir = path.dirname(__filename);
 /**
  * Auto-detect the contract directory from the source .compact file
  * This ensures we always use the current contract, not old managed directories

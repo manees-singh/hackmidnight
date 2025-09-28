@@ -38,12 +38,33 @@ export declare class EnhancedContractAPI {
     getContractInfo(): ContractInfo | null;
     generateMenuItems(): any[];
     generateMenuQuestion(menuItems: any[]): string;
+    /**
+     * Execute vote function
+     */
+    vote(...args: any[]): Promise<any>;
+    /**
+     * Execute get_votes function
+     */
+    get_votes(...args: any[]): Promise<any>;
 }
 export declare const CONTRACT_METADATA: {
     readonly name: "Voting Contract";
     readonly fileName: "voting.compact";
-    readonly generatedAt: "2025-09-28T00:51:31.279Z";
-    readonly functions: readonly [];
-    readonly ledgerState: readonly [];
+    readonly generatedAt: "2025-09-28T03:27:47.365Z";
+    readonly functions: readonly [{
+        readonly name: "vote";
+        readonly parameters: readonly [];
+        readonly returnType: "[]";
+        readonly readOnly: false;
+    }, {
+        readonly name: "get_votes";
+        readonly parameters: readonly [];
+        readonly returnType: "Uint<64>";
+        readonly readOnly: true;
+    }];
+    readonly ledgerState: readonly [{
+        readonly name: "votes";
+        readonly type: "Counter";
+    }];
     readonly witnesses: readonly [];
 };

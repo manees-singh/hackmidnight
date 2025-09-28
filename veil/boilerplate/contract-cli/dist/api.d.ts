@@ -30,7 +30,7 @@ export declare const buildFreshWallet: (config: Config) => Promise<Wallet & Reso
 export declare const configureProviders: (wallet: Wallet & Resource, config: Config) => Promise<{
     privateStateProvider: import("@midnight-ntwrk/midnight-js-types").PrivateStateProvider<"counterPrivateState", any>;
     publicDataProvider: import("@midnight-ntwrk/midnight-js-types").PublicDataProvider;
-    zkConfigProvider: NodeZkConfigProvider<"increment">;
+    zkConfigProvider: NodeZkConfigProvider<"vote">;
     proofProvider: import("@midnight-ntwrk/midnight-js-types").ProofProvider<string>;
     walletProvider: WalletProvider & MidnightProvider;
     midnightProvider: WalletProvider & MidnightProvider;

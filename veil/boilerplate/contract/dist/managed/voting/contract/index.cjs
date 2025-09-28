@@ -13,11 +13,33 @@ if (expectedRuntimeVersion[0] != actualRuntimeVersion[0]
      throw new __compactRuntime.CompactError(`compiler thinks maximum field value is ${MAX_FIELD}; run time thinks it is ${__compactRuntime.MAX_FIELD}`)
 }
 
-const _descriptor_0 = new __compactRuntime.CompactTypeUnsignedInteger(255n, 1);
+const _descriptor_0 = new __compactRuntime.CompactTypeUnsignedInteger(65535n, 2);
 
 const _descriptor_1 = new __compactRuntime.CompactTypeUnsignedInteger(18446744073709551615n, 8);
 
-const _descriptor_2 = new __compactRuntime.CompactTypeUnsignedInteger(340282366920938463463374607431768211455n, 16);
+const _descriptor_2 = new __compactRuntime.CompactTypeBoolean();
+
+const _descriptor_3 = new __compactRuntime.CompactTypeBytes(32);
+
+class _ContractAddress_0 {
+  alignment() {
+    return _descriptor_3.alignment();
+  }
+  fromValue(value_0) {
+    return {
+      bytes: _descriptor_3.fromValue(value_0)
+    }
+  }
+  toValue(value_0) {
+    return _descriptor_3.toValue(value_0.bytes);
+  }
+}
+
+const _descriptor_4 = new _ContractAddress_0();
+
+const _descriptor_5 = new __compactRuntime.CompactTypeUnsignedInteger(255n, 1);
+
+const _descriptor_6 = new __compactRuntime.CompactTypeUnsignedInteger(340282366920938463463374607431768211455n, 16);
 
 class Contract {
   witnesses;
@@ -31,8 +53,57 @@ class Contract {
     }
     this.witnesses = witnesses_0;
     this.circuits = {
+      vote: (...args_1) => {
+        if (args_1.length !== 1) {
+          throw new __compactRuntime.CompactError(`vote: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
+        }
+        const contextOrig_0 = args_1[0];
+        if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.originalState != undefined && contextOrig_0.transactionContext != undefined)) {
+          __compactRuntime.type_error('vote',
+                                      'argument 1 (as invoked from Typescript)',
+                                      'voting.compact line 6 char 1',
+                                      'CircuitContext',
+                                      contextOrig_0)
+        }
+        const context = { ...contextOrig_0 };
+        const partialProofData = {
+          input: { value: [], alignment: [] },
+          output: undefined,
+          publicTranscript: [],
+          privateTranscriptOutputs: []
+        };
+        const result_0 = this._vote_0(context, partialProofData);
+        partialProofData.output = { value: [], alignment: [] };
+        return { result: result_0, context: context, proofData: partialProofData };
+      },
+      get_votes: (...args_1) => {
+        if (args_1.length !== 1) {
+          throw new __compactRuntime.CompactError(`get_votes: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
+        }
+        const contextOrig_0 = args_1[0];
+        if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.originalState != undefined && contextOrig_0.transactionContext != undefined)) {
+          __compactRuntime.type_error('get_votes',
+                                      'argument 1 (as invoked from Typescript)',
+                                      'voting.compact line 10 char 1',
+                                      'CircuitContext',
+                                      contextOrig_0)
+        }
+        const context = { ...contextOrig_0 };
+        const partialProofData = {
+          input: { value: [], alignment: [] },
+          output: undefined,
+          publicTranscript: [],
+          privateTranscriptOutputs: []
+        };
+        const result_0 = this._get_votes_0(context, partialProofData);
+        partialProofData.output = { value: _descriptor_1.toValue(result_0), alignment: _descriptor_1.alignment() };
+        return { result: result_0, context: context, proofData: partialProofData };
+      }
     };
-    this.impureCircuits = {};
+    this.impureCircuits = {
+      vote: this.circuits.vote,
+      get_votes: this.circuits.get_votes
+    };
   }
   initialState(...args_0) {
     if (args_0.length !== 1) {
@@ -50,7 +121,10 @@ class Contract {
     }
     const state_0 = new __compactRuntime.ContractState();
     let stateValue_0 = __compactRuntime.StateValue.newArray();
+    stateValue_0 = stateValue_0.arrayPush(__compactRuntime.StateValue.newNull());
     state_0.data = stateValue_0;
+    state_0.setOperation('vote', new __compactRuntime.ContractOperation());
+    state_0.setOperation('get_votes', new __compactRuntime.ContractOperation());
     const context = {
       originalState: state_0,
       currentPrivateState: constructorContext_0.initialPrivateState,
@@ -63,12 +137,55 @@ class Contract {
       publicTranscript: [],
       privateTranscriptOutputs: []
     };
+    Contract._query(context,
+                    partialProofData,
+                    [
+                     { push: { storage: false,
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(0n),
+                                                                            alignment: _descriptor_5.alignment() }).encode() } },
+                     { push: { storage: true,
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_1.toValue(0n),
+                                                                            alignment: _descriptor_1.alignment() }).encode() } },
+                     { ins: { cached: false, n: 1 } }]);
     state_0.data = context.transactionContext.state;
     return {
       currentContractState: state_0,
       currentPrivateState: context.currentPrivateState,
       currentZswapLocalState: context.currentZswapLocalState
     }
+  }
+  _vote_0(context, partialProofData) {
+    const tmp_0 = 1n;
+    Contract._query(context,
+                    partialProofData,
+                    [
+                     { idx: { cached: false,
+                              pushPath: true,
+                              path: [
+                                     { tag: 'value',
+                                       value: { value: _descriptor_5.toValue(0n),
+                                                alignment: _descriptor_5.alignment() } }] } },
+                     { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
+                                            { value: _descriptor_0.toValue(tmp_0),
+                                              alignment: _descriptor_0.alignment() }
+                                              .value
+                                          )) } },
+                     { ins: { cached: true, n: 1 } }]);
+    return [];
+  }
+  _get_votes_0(context, partialProofData) {
+    return _descriptor_1.fromValue(Contract._query(context,
+                                                   partialProofData,
+                                                   [
+                                                    { dup: { n: 0 } },
+                                                    { idx: { cached: false,
+                                                             pushPath: false,
+                                                             path: [
+                                                                    { tag: 'value',
+                                                                      value: { value: _descriptor_5.toValue(0n),
+                                                                               alignment: _descriptor_5.alignment() } }] } },
+                                                    { popeq: { cached: true,
+                                                               result: undefined } }]).value);
   }
   static _query(context, partialProofData, prog) {
     var res;
@@ -109,6 +226,20 @@ function ledger(state) {
     privateTranscriptOutputs: []
   };
   return {
+    get votes() {
+      return _descriptor_1.fromValue(Contract._query(context,
+                                                     partialProofData,
+                                                     [
+                                                      { dup: { n: 0 } },
+                                                      { idx: { cached: false,
+                                                               pushPath: false,
+                                                               path: [
+                                                                      { tag: 'value',
+                                                                        value: { value: _descriptor_5.toValue(0n),
+                                                                                 alignment: _descriptor_5.alignment() } }] } },
+                                                      { popeq: { cached: true,
+                                                                 result: undefined } }]).value);
+    }
   };
 }
 const _emptyContext = {

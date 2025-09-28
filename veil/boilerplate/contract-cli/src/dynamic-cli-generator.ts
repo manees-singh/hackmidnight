@@ -33,7 +33,7 @@ export class DynamicCLIGenerator {
       this.logger.info(`Analyzed contract: ${this.contractAnalysis.contractName}`);
       this.logger.info(`Found ${this.contractAnalysis.functions.length} functions`);
     } catch (error) {
-      this.logger.error('Failed to analyze contract:', error);
+      this.logger.error(`Failed to analyze contract: ${error instanceof Error ? error.message : String(error)}`);
       throw error;
     }
   }
